@@ -1,0 +1,65 @@
+body {
+  font-family: "Sono", sans-serif;
+}
+.forecast {
+  margin-right: 20%;
+  background-color: #fff;
+  padding: 2%;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #b6d7de;
+  border-width: 5px;
+  font-size: 30px;
+}
+.outside_box {
+  border-radius: 10px;
+  background-color: #fff9f1;
+  margin: 5%;
+  padding: 5%;
+}
+.date {
+  font-size: 60px;
+  padding-top: 5%;
+  padding-left: 5%;
+}
+.deg {
+  margin: 5% auto 5% auto;
+}
+button {
+  margin: 10;
+  background-color: #b6d7de;
+  border-radius: 10px;
+  margin-left: 5%;
+}
+#deg_cel,
+#deg_far {
+  background-color: #b6d7de;
+  border-radius: 30%;
+  width: 20%;
+}
+#deg_cel {
+  padding: 50px;
+  font-size: 600%;
+  font-weight: 600;
+  margin-left: 30%;
+}
+#deg_far {
+  font-size: 400%;
+  padding: 30px;
+  margin-left: 10%;
+  font-weight: 400;
+}
+
+.city {
+  text-align: right;
+  font-size: 200px;
+  font-weight: 700;
+}
+
+body {
+  background-color: #fff;
+}
+
+#search_bar {
+  width: 50%;
+}
