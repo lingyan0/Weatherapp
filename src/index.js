@@ -32,12 +32,19 @@ convertButton.addEventListener("click", function (event) {
 //search bar change name and data
 let searchBar = document.getElementById("searchBar");
 let searchInput = document.getElementById("searchInput");
+let mainIcon = document.getElementById("main-icon-img");
+console.log(mainIcon);
 searchBar.addEventListener("submit", function (event) {
   event.preventDefault();
 
   function changeSearchBarData(input) {
-    console.log(input);
+    //console.log(input);
     temperature.innerHTML = (input.data.main.temp - 272.15).toFixed(1);
+    //console.log(input.data.weather[0].icon);
+    mainIcon.setAttribute(
+      "src",
+      `https://openweathermap.org/img/wn/${input.data.weather[0].icon}@2x.png`
+    );
   }
 
   function getSearchBarData(input) {
@@ -62,6 +69,10 @@ searchBar.addEventListener("submit", function (event) {
 function changeData(input) {
   console.log(input);
   temperature.innerHTML = (input.data.main.temp - 272.15).toFixed(1);
+  mainIcon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${input.data.weather[0].icon}@2x.png`
+  );
 }
 
 //geolocation changing name
@@ -86,3 +97,5 @@ function localLocation() {
 let locationButton = document.getElementById("locationButton");
 
 locationButton.addEventListener("click", localLocation);
+
+//making icons change

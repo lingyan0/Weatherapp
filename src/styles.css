@@ -1,6 +1,9 @@
 body {
   font-family: "Sono", sans-serif;
 }
+#main-icon img {
+  transform: scale(2);
+}
 .forecast {
   margin-right: 20%;
   background-color: #fff;
