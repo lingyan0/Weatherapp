@@ -33,23 +33,17 @@ convertButton.addEventListener("click", function (event) {
 let searchBar = document.getElementById("searchBar");
 let searchInput = document.getElementById("searchInput");
 let mainIcon = document.getElementById("main-icon-img");
+let weatherDesc = document.getElementById("weather_desc");
+let windSpeed = document.getElementById("wind_speed");
+let humidity = document.getElementById("humidity");
 console.log(mainIcon);
 searchBar.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  function changeSearchBarData(input) {
-    temperatureNumber = (input.data.main.temp - 272.15).toFixed(1);
-    temperature.innerHTML = `${temperatureNumber} C`;
-    mainIcon.setAttribute(
-      "src",
-      `https://openweathermap.org/img/wn/${input.data.weather[0].icon}@2x.png`
-    );
-  }
-
   function getSearchBarData(input) {
     let apiWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${input.data[0].lat}&lon=${input.data[0].lon}&appid=1a6432c5ca7b6f9b0bee45c98d54ea71`;
 
-    axios.get(apiWeatherUrl).then(changeSearchBarData);
+    axios.get(apiWeatherUrl).then(changeData);
   }
 
   let searchValue = searchInput.value;
@@ -65,8 +59,12 @@ searchBar.addEventListener("submit", function (event) {
 
 //given name change data
 function changeData(input) {
+  console.log(input);
   temperatureNumber = (input.data.main.temp - 272.15).toFixed(1);
   temperature.innerHTML = `${temperatureNumber} C`;
+  weatherDesc.innerHTML = input.data.weather[0].description;
+  windSpeed.innerHTML = `${input.data.wind.speed} km/h`;
+  humidity.innerHTML = `${input.data.main.humidity}%`;
   mainIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${input.data.weather[0].icon}@2x.png`
