@@ -36,14 +36,15 @@ let mainIcon = document.getElementById("main-icon-img");
 let weatherDesc = document.getElementById("weather_desc");
 let windSpeed = document.getElementById("wind_speed");
 let humidity = document.getElementById("humidity");
-console.log(mainIcon);
+
 searchBar.addEventListener("submit", function (event) {
   event.preventDefault();
 
   function getSearchBarData(input) {
     let apiWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${input.data[0].lat}&lon=${input.data[0].lon}&appid=1a6432c5ca7b6f9b0bee45c98d54ea71`;
-
+    let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${input.data[0].lon}&lat=${input.data[0].lat}&key=o833de0tab73f267b382c320471b62cb`;
     axios.get(apiWeatherUrl).then(changeData);
+    axios.get(forecastApiUrl).then(changeForecast);
   }
 
   let searchValue = searchInput.value;
@@ -57,14 +58,49 @@ searchBar.addEventListener("submit", function (event) {
   city.innerHTML = `${searchValue}`;
 });
 
+//change forecast
+function changeForecast(response) {
+  console.log(response);
+  let weekdays = [
+    `Sun`,
+    `Mon`,
+    `Tue`,
+    `Wed`,
+    `Thu`,
+    `Fri`,
+    `Sat`,
+    `Sun`,
+    `Mon`,
+    `Tue`,
+    `Wed`,
+    `Thu`,
+    `Fri`,
+    `Sat`,
+  ];
+  for (let i = 0; i < 5; i++) {
+    console.log(i);
+    let unit = document.getElementById(i);
+    unit.innerHTML = `${weekdays[now.getDay() + i]}
+    <img
+            src="${response.data.daily[i].condition.icon_url}"
+            alt="${response.data.daily[i].condition.description}"
+          /> 
+              <div><span>${response.data.daily[i].temperature.maximum.toFixed(
+                1
+              )}</span>  <span class="min">${response.data.daily[
+      i
+    ].temperature.minimum.toFixed(1)}</span></div>`;
+  }
+}
+
 //given name change data
 function changeData(input) {
-  console.log(input);
+  //console.log(input);
   temperatureNumber = (input.data.main.temp - 272.15).toFixed(1);
   temperature.innerHTML = `${temperatureNumber} C`;
   weatherDesc.innerHTML = input.data.weather[0].description;
-  windSpeed.innerHTML = `${input.data.wind.speed} km/h`;
-  humidity.innerHTML = `${input.data.main.humidity}%`;
+  windSpeed.innerHTML = `windspeed: ${input.data.wind.speed} km/h`;
+  humidity.innerHTML = `humidity: ${input.data.main.humidity}%`;
   mainIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${input.data.weather[0].icon}@2x.png`
@@ -74,17 +110,19 @@ function changeData(input) {
 //geolocation changing name
 function changeLocation(input) {
   let city = document.getElementById("cityName");
-  //console.log(input);
   city.innerHTML = `${input.data.name}`;
 }
 
 function getLocation(input) {
-  console.log(input.coords.latitude);
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${input.coords.latitude}&lon=${input.coords.longitude}&appid=1a6432c5ca7b6f9b0bee45c98d54ea71`;
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${input.coords.longitude}&lat=${input.coords.latitude}&key=o833de0tab73f267b382c320471b62cb`;
+
+  //console.log(forecastApiUrl);
   axios.get(apiUrl).then((response) => {
     changeLocation(response);
     changeData(response);
   });
+  axios.get(forecastApiUrl).then(changeForecast);
 }
 
 function localLocation() {
@@ -94,4 +132,4 @@ let locationButton = document.getElementById("locationButton");
 
 locationButton.addEventListener("click", localLocation);
 
-//making icons change
+//weather forecast

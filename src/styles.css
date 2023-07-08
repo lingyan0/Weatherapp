@@ -88,3 +88,7 @@ button {
 #search_bar {
   width: 50%;
 }
+
+.min {
+  opacity: 80%;
+}
