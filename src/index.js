@@ -13,7 +13,7 @@ let temperatureNumber = `oOh whAt TeMP?`; //this is just a placeholder
 let unit = "celcius";
 function convertUnit() {
   if (unit === "celcius") {
-    temperature.innerHTML = `${(temperatureNumber * 33.8).toFixed(1)} F`;
+    temperature.innerHTML = `${(temperatureNumber * 33.8).toFixed(0)} F`;
     convertButton.innerHTML = "convert to Celcius!";
     unit = "fahrenheit";
   } else if (unit === "fahrenheit") {
@@ -86,17 +86,17 @@ function changeForecast(response) {
             alt="${response.data.daily[i].condition.description}"
           /> 
               <div><span>${response.data.daily[i].temperature.maximum.toFixed(
-                1
+                0
               )}</span>  <span class="min">${response.data.daily[
       i
-    ].temperature.minimum.toFixed(1)}</span></div>`;
+    ].temperature.minimum.toFixed(0)}</span></div>`;
   }
 }
 
 //given name change data
 function changeData(input) {
   //console.log(input);
-  temperatureNumber = (input.data.main.temp - 272.15).toFixed(1);
+  temperatureNumber = (input.data.main.temp - 272.15).toFixed(0);
   temperature.innerHTML = `${temperatureNumber} C`;
   weatherDesc.innerHTML = input.data.weather[0].description;
   windSpeed.innerHTML = `windspeed: ${input.data.wind.speed} km/h`;
